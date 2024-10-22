@@ -1,3 +1,17 @@
 <h1>{{title}}</h1>
 <h2>{{title}}</h2>
 <h3>{{title}}</h3>
+
+
+<ul *ngFor="let user of users">
+   <li>{{user.id}} - {{user.userName}}</li>
+
+</ul>
+
+
+<ul>
+  @for (newuser of users; track users.id) {
+    <li>{{newuser.id}} - {{newuser.userName}}</li>
+  }
+  
+</ul>
