@@ -2,11 +2,12 @@ import { NgFor } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NavComponent } from "./nav/nav.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,HttpClientModule,NgFor],
+  imports: [RouterOutlet, HttpClientModule, NgFor, NavComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
