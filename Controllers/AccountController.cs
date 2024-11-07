@@ -1,6 +1,7 @@
 ﻿using API.Data;
 using API.DTOs;
 using API.Entites;
+using API.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,15 +14,17 @@ namespace API.Controllers
     public class AccountController : BaseApiController
     {
         private readonly DataContext _dataContext;
+        private readonly ITokenService _tokenService;
 
-        public AccountController(DataContext dataContext)
+        public AccountController(DataContext dataContext, ITokenService tokenService)
         {
             _dataContext = dataContext;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
 
-        public async Task<ActionResult<AppUser>> Register([FromBody] RegisterDto registerDto)
+        public async Task<ActionResult<UserDto>> Register([FromBody] RegisterDto registerDto)
         {
            
             if (await UserExist(registerDto.Username) == true)
@@ -41,11 +44,15 @@ namespace API.Controllers
             _dataContext.Add(user);
             await _dataContext.SaveChangesAsync();
 
-            return user;
+            return new UserDto
+            {
+                Token = _tokenService.CreateToken(user),
+                UserName = registerDto.Username,
+            };
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<AppUser>> Login(LoginDto loginDto)
+        public async Task<ActionResult<UserDto>> Login([FromBody] LoginDto loginDto)
         {
             var user = await _dataContext.User.FirstOrDefaultAsync(x => x.UserName.ToLower() == loginDto.Username);
 
@@ -59,7 +66,11 @@ namespace API.Controllers
                 if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
             }
 
-            return user;
+            return new UserDto
+            {
+                Token = _tokenService.CreateToken(user),
+                UserName = loginDto.Username,
+            }; 
         }
 
 
