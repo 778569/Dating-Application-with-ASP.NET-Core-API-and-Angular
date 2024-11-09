@@ -35,4 +35,18 @@ this.CurrentUserSource.next(user)
     this.CurrentUserSource.next(null)
     
   }
+
+  registerUser(model:any){
+
+    return this.http.post<User>(this.baseUrl + 'account/register', model).pipe(
+      map((response:User)=>{
+        const user = response
+        if(user){
+          localStorage.setItem('user',JSON.stringify(user));
+          this.CurrentUserSource.next(user);
+        }
+        
+      })
+    )
+  }
 }
