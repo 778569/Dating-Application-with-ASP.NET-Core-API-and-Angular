@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown'
 import { AccountService } from '../_services/account.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [FormsModule, BsDropdownModule],
+  imports: [FormsModule, BsDropdownModule, RouterModule ],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })
