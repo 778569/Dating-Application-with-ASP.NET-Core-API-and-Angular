@@ -5,8 +5,8 @@ import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
-  imports: [NgIf, RegisterComponent],
+  standalone: false,
+  
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
