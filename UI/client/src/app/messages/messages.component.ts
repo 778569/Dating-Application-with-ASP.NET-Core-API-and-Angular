@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-messages',
-  standalone: true,
+  standalone: false,
   imports: [],
   templateUrl: './messages.component.html',
   styleUrl: './messages.component.css'

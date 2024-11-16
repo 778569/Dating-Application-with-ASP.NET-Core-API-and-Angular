@@ -6,11 +6,12 @@ import { NavComponent } from "./nav/nav.component";
 import { User } from './_models/user';
 import { AccountService } from './_services/account.service';
 import { HomeComponent } from "./home/home.component";
+import { ToastrModule } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, HttpClientModule, NgFor, NavComponent, HomeComponent],
+  standalone: false,
+  
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -39,3 +40,4 @@ export class AppComponent implements OnInit {
 
 
 }
+ 

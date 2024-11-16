@@ -33,7 +33,7 @@
       
       @if (loggedIn) {
         <div dropdown class="dropdown">
-        <a dropdownToggle class="dropdown-toggle text-light">Welcome user</a>
+        <a dropdownToggle class="dropdown-toggle text-light">Welcome {{model.username | titlecase}}</a>
         <div *dropdownMenu class="dropdown-menu">
           <a class="dropdown-item">Edit Profile</a>
           <div class="dropdown-divider"></div>
@@ -54,7 +54,7 @@
           [(ngModel)]="model.password"
           type="password" 
           placeholder="Password">
-          <button class="btn btn-outline-success" type="submit">LogIn</button>
+          <button class="btn btn-success" type="submit">LogIn</button>
         </form>
        }
         
