@@ -5,9 +5,11 @@ import { AccountService } from '../_services/account.service';
 import { RouterModule } from '@angular/router';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { SharedModule } from '../_modules/shared.module';
 
 @Component({
   selector: 'app-nav',
+  standalone:false,
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })

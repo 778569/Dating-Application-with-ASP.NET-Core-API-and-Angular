@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { AppComponent } from './app.component';
 import { RouterModule, RouterOutlet } from '@angular/router';
@@ -13,6 +13,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './_modules/shared.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 
@@ -29,6 +30,7 @@ import { SharedModule } from './_modules/shared.module';
 
   ],
   imports: [
+    BrowserModule,
     CommonModule,
     RouterOutlet, 
     HttpClientModule, 
@@ -40,6 +42,7 @@ import { SharedModule } from './_modules/shared.module';
   
   ],
   providers:[],
-  bootstrap:[AppComponent]
+  bootstrap:[AppComponent],
+  
 })
 export class ModuleModule { }
