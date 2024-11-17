@@ -5,7 +5,6 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
-import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './register/register.component';
 import { ListsComponent } from './lists/lists.component';
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
@@ -13,7 +12,6 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MessagesComponent } from './messages/messages.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 import { SharedModule } from './_modules/shared.module';
 
 

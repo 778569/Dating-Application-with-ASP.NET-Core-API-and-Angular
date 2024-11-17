@@ -13,8 +13,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     BrowserModule,
     ToastrModule
   ],
-  exports:[BsDropdownModule,
-    
+  exports:[
+    BsDropdownModule,  
     ToastrModule
   ]
 })
