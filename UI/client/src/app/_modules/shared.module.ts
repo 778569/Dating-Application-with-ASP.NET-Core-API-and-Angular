@@ -3,18 +3,23 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NavComponent } from '../nav/nav.component';
+import { RouterModule } from '@angular/router';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+   
+  ],
   imports: [
     CommonModule,
     BrowserModule,
-    ToastrModule
+    ToastrModule,
+    RouterModule
   ],
-  exports:[BsDropdownModule,
-    
+  exports:[
+    BsDropdownModule,  
     ToastrModule
   ]
 })

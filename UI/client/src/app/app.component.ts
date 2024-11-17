@@ -13,7 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
   standalone: true,
   imports:[RouterModule,NavComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
   title = 'client';
