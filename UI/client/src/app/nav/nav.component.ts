@@ -8,8 +8,8 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-nav',
-  standalone: false,
-  
+  standalone: true,
+  imports:[RouterModule,CommonModule,FormsModule],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })
