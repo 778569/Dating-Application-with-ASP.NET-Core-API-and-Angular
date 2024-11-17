@@ -1,7 +1,7 @@
 import { NgFor } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { NavComponent } from "./nav/nav.component";
 import { User } from './_models/user';
 import { AccountService } from './_services/account.service';
@@ -10,8 +10,8 @@ import { ToastrModule } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
-  standalone: false,
-  
+  standalone: true,
+  imports:[RouterModule,NavComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
