@@ -8,8 +8,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-nav',
-  standalone: false,
-  
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css'
 })

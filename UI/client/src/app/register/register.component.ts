@@ -6,8 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
-  standalone: true,
-  imports: [FormsModule,NgFor],
+  standalone: false,
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { AppComponent } from './app.component';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule, RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
@@ -20,13 +20,14 @@ import { SharedModule } from './_modules/shared.module';
 
 @NgModule({
   declarations: [
-    NavComponent,
-    RegisterComponent,
+    AppComponent,
     ListsComponent,
     MemberDetailComponent,
     MemberListComponent,
     MessagesComponent,
-    HomeComponent
+    HomeComponent,
+    NavComponent,
+    RegisterComponent
 
   ],
   imports: [
@@ -36,7 +37,9 @@ import { SharedModule } from './_modules/shared.module';
     NgFor, 
     FormsModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    RouterModule,
+  
   ],
   providers:[],
   bootstrap:[AppComponent]
