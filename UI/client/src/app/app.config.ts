@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
 
   providers: [
     provideRouter(routes),
-    // provideHttpClient(withInterceptors([ErrorInterceptor])),
+    provideHttpClient(withInterceptors([ErrorInterceptor])),
     provideHttpClient(),
     provideAnimations(),
     provideToastr({
@@ -23,6 +23,6 @@ export const appConfig: ApplicationConfig = {
       preventDuplicates: true,
     }),
     // {provide: HTTP_INTERCEPTORS, useClass:ErrorInterceptor, multi: true}
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ]
 };

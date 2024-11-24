@@ -109,81 +109,125 @@
 //   }
 // }
 
-// import { HttpInterceptorFn } from '@angular/common/http';
-// import { ToastrService } from 'ngx-toastr';
-// import { inject } from '@angular/core';
-// import { catchError } from 'rxjs/operators';
-// import { throwError } from 'rxjs';
-
-// export const ErrorInterceptor: HttpInterceptorFn = (req, next) => {
-//   const toastr = inject(ToastrService); // Use Angular's DI system to inject services
-
-//   return next(req).pipe(
-//     catchError((error) => {
-//       if (error.status === 0) {
-//         // Network error
-//         toastr.error('Network error occurred', 'Error');
-//       } else {
-//         // HTTP error
-//         toastr.error(`Error ${error.status}: ${error.message}`, 'Server Error');
-//       }
-//       return throwError(() => error);
-//     })
-//   );
-// };
-
-import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Router, NavigationExtras } from '@angular/router';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { inject } from '@angular/core';
+import { catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { NavigationExtras, Router } from '@angular/router';
 
-@Injectable()
-export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private router: Router, private toastr: ToastrService) {}
+export const ErrorInterceptor: HttpInterceptorFn = (req, next) => {
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error) {
-          switch (error.status) {
-            case 400:
-              if (error.error?.errors) {
-                const modelStateErrors: string[] = [];
-                for (const key in error.error.errors) {
-                  if (error.error.errors[key]) {
-                    modelStateErrors.push(error.error.errors[key]);
-                  }
+  
+  const toastr = inject(ToastrService); // Use Angular's DI system to inject services
+const router = inject(Router)
+
+  return next(req).pipe(
+    // catchError((error) => {
+    //   if (error.status === 0) {
+    //     // Network error
+    //     toastr.error('Network error occurred', 'Error');
+    //   } else {
+    //     // HTTP error
+    //     toastr.error(`Error ${error.status}: ${error.message}`, 'Server Error');
+    //   }
+    //   return throwError(() => error);
+    // })
+
+    catchError((error: HttpErrorResponse) => {
+              if (error) {
+                switch (error.status) {
+                  case 400:
+                    if (error.error?.errors) {
+                      const modelStateErrors: string[] = [];
+                      for (const key in error.error.errors) {
+                        if (error.error.errors[key]) {
+                          modelStateErrors.push(error.error.errors[key]);
+                        }
+                      }
+                      modelStateErrors.forEach((err) => toastr.error(err, 'Validation Error'));
+                    } else {
+                      toastr.error(error.error, error.status.toString());
+                    }
+                    break;
+      
+                  case 401:
+                    toastr.error('Unauthorised', error.status.toString());
+                    break;
+      
+                  case 404:
+                    router.navigateByUrl('/not-found');
+                    break;
+      
+                  case 500:
+                    const navigationExtras: NavigationExtras = { state: { error: error.error } };
+                    router.navigateByUrl('/server-error', navigationExtras);
+                    break;
+      
+                  default:
+                    toastr.error('Something unexpected went wrong');
+                    console.error(error);
+                    break;
                 }
-                modelStateErrors.forEach((err) => this.toastr.error(err, 'Validation Error'));
-              } else {
-                this.toastr.error(error.error, error.status.toString());
               }
-              break;
+      
+              return throwError(() => error);
+            })
+  );
+};
 
-            case 401:
-              this.toastr.error('Unauthorised', error.status.toString());
-              break;
+// import { Injectable } from '@angular/core';
+// import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+// import { Observable, throwError } from 'rxjs';
+// import { catchError } from 'rxjs/operators';
+// import { Router, NavigationExtras } from '@angular/router';
+// import { ToastrService } from 'ngx-toastr';
 
-            case 404:
-              this.router.navigateByUrl('/not-found');
-              break;
+// @Injectable()
+// export class ErrorInterceptor implements HttpInterceptor {
+//   constructor(private router: Router, private toastr: ToastrService) {}
 
-            case 500:
-              const navigationExtras: NavigationExtras = { state: { error: error.error } };
-              this.router.navigateByUrl('/server-error', navigationExtras);
-              break;
+//   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+//     return next.handle(request).pipe(
+//       catchError((error: HttpErrorResponse) => {
+//         if (error) {
+//           switch (error.status) {
+//             case 400:
+//               if (error.error?.errors) {
+//                 const modelStateErrors: string[] = [];
+//                 for (const key in error.error.errors) {
+//                   if (error.error.errors[key]) {
+//                     modelStateErrors.push(error.error.errors[key]);
+//                   }
+//                 }
+//                 modelStateErrors.forEach((err) => this.toastr.error(err, 'Validation Error'));
+//               } else {
+//                 this.toastr.error(error.error, error.status.toString());
+//               }
+//               break;
 
-            default:
-              this.toastr.error('Something unexpected went wrong');
-              console.error(error);
-              break;
-          }
-        }
+//             case 401:
+//               this.toastr.error('Unauthorised', error.status.toString());
+//               break;
 
-        return throwError(() => error);
-      })
-    );
-  }
-}
+//             case 404:
+//               this.router.navigateByUrl('/not-found');
+//               break;
+
+//             case 500:
+//               const navigationExtras: NavigationExtras = { state: { error: error.error } };
+//               this.router.navigateByUrl('/server-error', navigationExtras);
+//               break;
+
+//             default:
+//               this.toastr.error('Something unexpected went wrong');
+//               console.error(error);
+//               break;
+//           }
+//         }
+
+//         return throwError(() => error);
+//       })
+//     );
+//   }
+// }
