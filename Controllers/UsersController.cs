@@ -12,7 +12,7 @@ namespace API.Controllers
     public class UsersController : BaseApiController
     {
         private DataContext _dbContext;
-        public UsersController(DataContext dbContext)
+        public UsersController(DataContext dbContext, UserRepository userRe)
         {
             _dbContext = dbContext;
         }
