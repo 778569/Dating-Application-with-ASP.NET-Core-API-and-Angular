@@ -10,9 +10,9 @@ namespace API.Entites
         //add 'required' to the list of modifiers in field_modifier and property_modifier. The required_member_list of a type is composed of all the members that have had required applied to them
         public required string UserName { get; set; }
 
-        public required byte[] PasswordHash { get; set; }
+        public byte[]? PasswordHash { get; set; }
 
-        public required byte[] PasswordSalt { get; set; }
+        public byte[]? PasswordSalt { get; set; }
 
         public DateOnly DateOfBirth { get; set; }
 
@@ -32,7 +32,7 @@ namespace API.Entites
 
         public string City { get; set; }
 
-        public string Countery { get; set; }
+        public string Country { get; set; }
 
         public List<Photo> Photos { get; set; } = new();
 

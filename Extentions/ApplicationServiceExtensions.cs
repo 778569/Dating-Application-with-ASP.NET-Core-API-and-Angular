@@ -1,4 +1,5 @@
-﻿using API.Interface;
+﻿using API.Data;
+using API.Interface;
 using API.Services;
 using System.Runtime.CompilerServices;
 
@@ -23,6 +24,7 @@ namespace API.Extentions
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
             services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }

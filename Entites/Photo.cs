@@ -11,7 +11,7 @@ namespace API.Entites
 
         public bool IsMain { get; set; }
 
-        public string PublicId { get; set; }
+        public string? PublicId { get; set; }
 
 
         public int AppUserId { get; set; }

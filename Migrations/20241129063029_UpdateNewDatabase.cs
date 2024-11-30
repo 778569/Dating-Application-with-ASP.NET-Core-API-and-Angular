@@ -6,11 +6,27 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace API.Migrations
 {
     /// <inheritdoc />
-    public partial class ExtendedUserEntity : Migration
+    public partial class UpdateNewDatabase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterColumn<byte[]>(
+                name: "PasswordSalt",
+                table: "User",
+                type: "varbinary(max)",
+                nullable: true,
+                oldClrType: typeof(byte[]),
+                oldType: "varbinary(max)");
+
+            migrationBuilder.AlterColumn<byte[]>(
+                name: "PasswordHash",
+                table: "User",
+                type: "varbinary(max)",
+                nullable: true,
+                oldClrType: typeof(byte[]),
+                oldType: "varbinary(max)");
+
             migrationBuilder.AddColumn<string>(
                 name: "City",
                 table: "User",
@@ -19,7 +35,7 @@ namespace API.Migrations
                 defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
-                name: "Countery",
+                name: "Country",
                 table: "User",
                 type: "nvarchar(max)",
                 nullable: false,
@@ -89,7 +105,7 @@ namespace API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsMain = table.Column<bool>(type: "bit", nullable: false),
-                    PublicId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PublicId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AppUserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -120,7 +136,7 @@ namespace API.Migrations
                 table: "User");
 
             migrationBuilder.DropColumn(
-                name: "Countery",
+                name: "Country",
                 table: "User");
 
             migrationBuilder.DropColumn(
@@ -154,6 +170,26 @@ namespace API.Migrations
             migrationBuilder.DropColumn(
                 name: "LookingFor",
                 table: "User");
+
+            migrationBuilder.AlterColumn<byte[]>(
+                name: "PasswordSalt",
+                table: "User",
+                type: "varbinary(max)",
+                nullable: false,
+                defaultValue: new byte[0],
+                oldClrType: typeof(byte[]),
+                oldType: "varbinary(max)",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<byte[]>(
+                name: "PasswordHash",
+                table: "User",
+                type: "varbinary(max)",
+                nullable: false,
+                defaultValue: new byte[0],
+                oldClrType: typeof(byte[]),
+                oldType: "varbinary(max)",
+                oldNullable: true);
         }
     }
 }
